@@ -1,86 +1,151 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>OPSWD Login</title>
+     <div class="login-wrapper">
+  <div class="login-box">
+    <div class="login-left">
+      <div class="logo">
+        <img src="capitol.png" alt="capitol Logo" />
+        <h2>BAICS</h2>
+        <p>Management System</p>
+      </div>
+        <form method="POST" action="{{ route('login') }}">
+    @csrf
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="password" name="password" placeholder="Password" required />
+        <div class="recover">
+          Forgot your account? <a href="#">Recover here.</a>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+    <div class="login-right">
+      <img src="dji_fly_20250527_9291 AM_372_1748314528355_photo.jpg" alt="People Receiving Aid" />
+    </div>
+  </div>
+</div>
+
+    <title>BAICS Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        govgreen: "#4A8B57",
-                        lightgreen: "#F0F7F1",
-                    },
-                },
-            },
+        
         };
     </script>
-    <style>
-        body {
-            font-family: "Inter", sans-serif;
-        }
-    </style>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #639D7F;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.login-box {
+  display: flex;
+  width: 900px;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-left, .login-right {
+  flex: 1;
+}
+
+.login-left {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo img {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.logo h2 {
+  color: #639D7F;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.logo p {
+  font-size: 14px;
+  color: #444;
+}
+
+form {
+  width: 100%;
+  max-width: 300px;
+}
+
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.recover {
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.recover a {
+  color: #639D7F;
+  text-decoration: none;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #639D7F;
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #aee0c1;
+}
+
+.login-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
 </head>
 
-<body class="bg-lightgreen">
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white p-10 rounded-xl shadow-lg w-full max-w-md border border-gray-100">
-            <div class="text-center mb-10">
-                <h1 class="text-3xl font-bold text-govgreen mb-2 tracking-wide">
-                    LOGIN
-                </h1>
-                <p class="text-gray-600 text-sm">
-                    <span class="font-bold">OPSWD</span> - Office of the
-                    Provincial Social Welfare & Development
-                </p>
-            </div>
-            <form method="POST" action="{{ route('login.submit') }}">
-                @csrf
-                <div class="space-y-6">
-                    <div class="relative">
-                        <input type="text" name="username" id="username" placeholder="Username"
-                            class="peer h-14 w-full px-4 rounded-xl border border-gray-300 bg-white placeholder-transparent focus:border-govgreen focus:ring-2 focus:ring-govgreen/30 outline-none transition-colors" />
-                        <label for="username"
-                            class="absolute left-4 -top-3.5 bg-white p-1 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent peer-placeholder-shown:p-0 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-govgreen peer-focus:bg-white peer-focus:p-1 text-gray-600">
-                            Username
-                        </label>
-                    </div>
-                    <div class="relative">
-                        <input type="password" name="password" id="password" placeholder="Password"
-                            class="peer h-14 w-full px-4 rounded-xl border border-gray-300 bg-white placeholder-transparent focus:border-govgreen focus:ring-2 focus:ring-govgreen/30 outline-none transition-colors" />
-                        <label for="password"
-                            class="absolute left-4 -top-3.5 bg-white p-1 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent peer-placeholder-shown:p-0 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-govgreen peer-focus:bg-white peer-focus:p-1 text-gray-600">
-                            Password
-                        </label>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox"
-                                class="w-4 h-4 border-gray-300 rounded text-govgreen focus:ring-govgreen/30"
-                                name="remember" />
-                            <span class="text-sm text-gray-600">Remember me</span>
-                        </label>
-                        <a href="#" class="text-sm text-govgreen hover:text-govgreen/80 transition-colors">
-                            Forgot password?
-                        </a>
-                    </div>
-                    <button
-                        class="w-full bg-gradient-to-tr from-govgreen to-govgreen/70 text-white py-3 px-4 rounded-lg hover:bg-govgreen/90 transition-all active:scale-[0.98] font-medium h-14">
-                        LOG IN
-                    </button>
-
-                     {{-- Display login error --}}
-                    @if($errors->has('login'))
-                    <p class="text-red-500 text-sm mt-4 text-center">{{ $errors->first('login') }}</p>
-                    @endif
-
-                </div>
-            </form>
-        </div>
-    </div>
 </body>
 
 </html>

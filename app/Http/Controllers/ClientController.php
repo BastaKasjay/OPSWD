@@ -77,6 +77,7 @@ class ClientController extends Controller
             'age' => 'required|integer',
             'address' => 'required|string',
             'contact_number' => 'required|string',
+            'birth_date' => 'nullable|date',
             'representative_first_name' => 'nullable|string',
             'representative_middle_name' => 'nullable|string',
             'representative_last_name' => 'nullable|string',
@@ -133,6 +134,7 @@ class ClientController extends Controller
             'age' => 'required|integer',
             'address' => 'required|string',
             'contact_number' => 'required|string',
+            'birth_date' => 'nullable|date',
             'representative_first_name' => 'nullable|string',
             'representative_middle_name' => 'nullable|string',
             'representative_last_name' => 'nullable|string',
@@ -153,4 +155,6 @@ class ClientController extends Controller
         return redirect()->route('clients.show', $client->id)
             ->with('success', 'Client updated successfully');
     }
+
+   
 }

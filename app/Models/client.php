@@ -17,7 +17,7 @@ class Client extends Model
         'age',
         'address',
         'contact_number',
-
+        'date_of_birth',
         'municipality_id',
         'assistance_type_id',
         'assistance_category_id',
