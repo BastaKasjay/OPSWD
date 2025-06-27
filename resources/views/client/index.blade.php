@@ -117,16 +117,13 @@
             </form>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-gray-200 table-fixed">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th>Full Name</th>
+                        <th class="w-56">Full Name</th>
                         <th>Sex</th>
-                        <th>Age</th>
-                        <th>Birth Date</th>
                         <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>
+0                        <th>
                             Municipality
                             <form method="GET" action="{{ route('clients.index') }}">
                                 <input type="hidden" name="search" value="{{ request('search') }}">
@@ -165,17 +162,13 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($clients as $client)
                         <tr>
-                            <td>{{ $client->id }}</td>
-                            <td style="white-space: nowrap;">
+                            <td class="w-56 whitespace-nowrap overflow-hidden text-ellipsis">
                                 <a href="{{ route('clients.show', $client->id) }}" class="text-mint-green-700 hover:underline">
                                     {{ $client->first_name }} {{ $client->middle_name }} {{ $client->last_name }}
                                 </a>
                             </td>
                             <td>{{ $client->sex }}</td>
-                            <td>{{ $client->age }}</td>
-                            <td>{{ $client->birth_date ? \Carbon\Carbon::parse($client->birth_date)->format('Y-m-d') : '-' }}</td>
-                            <td>{{ $client->address }}</td>
-                            <td>{{ $client->contact_number }}</td>
+                            <td>{{ $client->address }}</td> 
                             <td>{{ $client->municipality ? $client->municipality->name : '-' }}</td>
                             <td>{{ $client->assistanceType ? $client->assistanceType->type_name : '-' }}</td>
                             <td>{{ $client->assistanceCategory ? $client->assistanceCategory->category_name : '-' }}</td>
