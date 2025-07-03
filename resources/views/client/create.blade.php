@@ -30,8 +30,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            
         }
-    </style>
++    </style>
 @endsection
 
 @section('content')
@@ -45,16 +46,16 @@
                 </svg>
             </div>
         </div>
-        <nav class="flex-grow">
+       <nav class="flex-grow">
             <ul>
                 <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
+                    <a href="#" class="flex items-center p-3 rounded-lg bg-mint-green-700 text-mint-green-100 font-semibold shadow-inner">
                         <i class="fas fa-tachometer-alt mr-3"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg bg-mint-green-700 text-mint-green-100 font-semibold shadow-inner">
+                    <a href="{{ route('clients.index') }}" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
                         <i class="fas fa-users mr-3"></i>
                         Client Management
                     </a>
@@ -62,7 +63,7 @@
                 <li class="mb-2">
                     <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
                         <i class="fas fa-hand-holding-usd mr-3"></i>
-                        System Management
+                        Sytsem Management
                     </a>
                 </li>
                 <li class="mb-2">
@@ -73,8 +74,8 @@
                 </li>
                 <li class="mb-2">
                     <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
-                        <i class="fas fa-file-invoice-dollar mr-3"></i>
-                        Settings
+                        <i class="fas fa-book-open mr-3"></i>
+                        Libraries
                     </a>
                 </li>
             </ul>

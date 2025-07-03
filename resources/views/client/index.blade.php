@@ -65,7 +65,7 @@
         <nav class="flex-grow">
             <ul>
                 <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
+                   <a href="{{ url('/home') }}" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
                         <i class="fas fa-tachometer-alt mr-3"></i>
                         Dashboard
                     </a>
@@ -97,10 +97,13 @@
             </ul>
         </nav>
         <div class="mt-auto">
-            <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
-                <i class="fas fa-sign-out-alt mr-3"></i>
-                Log out
-            </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="w-full flex items-center justify-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-mint-green-400">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    <span>Log out</span>
+                </button>
+            </form>
         </div>
     </aside>
     <!-- Main Content -->
@@ -123,7 +126,7 @@
                         <th class="w-56">Full Name</th>
                         <th>Sex</th>
                         <th>Address</th>
-0                        <th>
+                        <th>
                             Municipality
                             <form method="GET" action="{{ route('clients.index') }}">
                                 <input type="hidden" name="search" value="{{ request('search') }}">
