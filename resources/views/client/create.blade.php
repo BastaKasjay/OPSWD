@@ -30,71 +30,24 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            
         }
-+    </style>
+        html, body, main {
+            overflow: hidden !important;
+        }
+        /* Hide scrollbars for all browsers */
+        ::-webkit-scrollbar { display: none; }
+        html { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 @endsection
 
 @section('content')
 <div class="flex min-h-screen bg-gray-100">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-mint-green-900 text-white flex flex-col p-4 shadow-lg rounded-r-lg min-h-screen h-screen">
-        <div class="flex items-center justify-center mb-8">
-            <div class="bg-mint-green-800 p-4 rounded-full">
-                <svg class="w-12 h-12 text-mint-green-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
-            </div>
-        </div>
-       <nav class="flex-grow">
-            <ul>
-                <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg bg-mint-green-700 text-mint-green-100 font-semibold shadow-inner">
-                        <i class="fas fa-tachometer-alt mr-3"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="mb-2">
-                    <a href="{{ route('clients.index') }}" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
-                        <i class="fas fa-users mr-3"></i>
-                        Client Management
-                    </a>
-                </li>
-                <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
-                        <i class="fas fa-hand-holding-usd mr-3"></i>
-                        Sytsem Management
-                    </a>
-                </li>
-                <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
-                        <i class="fas fa-user-cog mr-3"></i>
-                        User Management
-                    </a>
-                </li>
-                <li class="mb-2">
-                    <a href="#" class="flex items-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200">
-                        <i class="fas fa-book-open mr-3"></i>
-                        Libraries
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="mt-auto">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="w-full flex items-center justify-center p-3 rounded-lg hover:bg-mint-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-mint-green-400">
-                    <i class="fas fa-sign-out-alt mr-3"></i>
-                    <span>Log out</span>
-                </button>
-            </form>
-        </div>
-    </aside>
+   
     <!-- Main Content -->
-    <main class="flex-1 p-8 bg-gray-100 overflow-x-auto">
+    <main class="flex-1 p-4 bg-gray-100">
 
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <div class="flex justify-between items-center mb-6">
+        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+            <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-gray-800 flex items-center">
                     <i class="fas fa-plus-circle mr-2 text-mint-green-600"></i>
                     Add Client
@@ -103,9 +56,9 @@
             </div>
             <form action="{{ route('clients.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Left: Client Info -->
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         <div>
                             <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name<span class="text-red-500">*</span></label>
                             <input type="text" id="first_name" name="first_name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
@@ -126,9 +79,23 @@
                                 <option value="Female">Female</option>
                             </select>
                         </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <div>
+                            <label for="birth_date" class="block text-sm font-medium text-gray-700 mb-1">Birth Date</label>
+                            <div class="relative">
+                                <input type="date" id="birth_date" name="birth_date" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500 pr-10">
+                                <i class="fas fa-calendar-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                            <div>
+                                <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age<span class="text-red-500">*</span></label>
+                                <input type="number" id="age" name="age" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
+                            </div>
+                        </div>
                         <div>
-                            <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age<span class="text-red-500">*</span></label>
-                            <input type="number" id="age" name="age" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
+                            <label for="contact_number" class="block text-sm font-medium text-gray-700 mb-1">Contact Number<span class="text-red-500">*</span></label>
+                            <input type="text" id="contact_number" name="contact_number" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
                         </div>
                         <div>
                             <label for="municipality_id" class="block text-sm font-medium text-gray-700 mb-1">Municipality<span class="text-red-500">*</span></label>
@@ -143,34 +110,53 @@
                             <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address<span class="text-red-500">*</span></label>
                             <input type="text" id="address" name="address" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
                         </div>
-                        <div>
-                            <label for="contact_number" class="block text-sm font-medium text-gray-700 mb-1">Contact Number<span class="text-red-500">*</span></label>
-                            <input type="text" id="contact_number" name="contact_number" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
-                        </div>
-                        <div>
-                            <label for="inputDate" class="block text-sm font-medium text-gray-700 mb-1">Birth Date</label>
-                            <div class="relative">
-                                <input type="date" id="inputDate" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500 pr-10">
-                                <i class="fas fa-calendar-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label for="valid_id" class="block text-sm font-medium text-gray-700 mb-1">Valid ID<span class="text-red-500">*</span></label>
+                                <select id="valid_id" name="valid_id" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
+                                    <option value="">Select Valid ID</option>
+                                    <option value="Driver's License">Driver's License</option>
+                                    <option value="Passport">Passport</option>
+                                    <option value="PhilHealth ID">PhilHealth ID</option>
+                                    <option value="SSS ID">SSS ID</option>
+                                    <option value="UMID">UMID</option>
+                                    <option value="Voter's ID">Voter's ID</option>
+                                    <option value="Senior Citizen ID">Senior Citizen ID</option>
+                                    <option value="PWD ID">PWD ID</option>
+                                    <option value="Barangay ID">Barangay ID</option>
+                                    <option value="Others">Others</option>
+                                </select>
                             </div>
+                            <div>
+                                <label for="id_number" class="block text-sm font-medium text-gray-700 mb-1">ID Number<span class="text-red-500">*</span></label>
+                                <input type="text" id="id_number" name="id_number" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
+                            </div>
+                        </div>
+                      
+                        <!-- Action Buttons -->
+                        <div class="mt-4 pt-3 border-t border-gray-200">
+                            <button type="submit" id="saveBtn" class="bg-mint-green-600 hover:bg-mint-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors duration-200" disabled>
+                                <i class="fas fa-save mr-2"></i> Save
+                            </button>
+                            <a href="{{ route('clients.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200 ml-2">Cancel</a>
                         </div>
                     </div>
                     <!-- Right: Representative, Assistance, Requirements -->
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Vulnerability Sectors</label>
-                            <div class="flex flex-wrap gap-3">
+                            <div class="flex flex-wrap gap-2">
                                 @foreach($vulnerabilitySectors as $sector)
-                                    <label class="inline-flex items-center">
+                                    <label class="inline-flex items-center text-xs">
                                         <input type="checkbox" name="vulnerability_sectors[]" value="{{ $sector->id }}" class="form-checkbox text-mint-green-600 focus:ring-mint-green-500 rounded">
-                                        <span class="ml-2 text-gray-900">{{ $sector->name }}</span>
+                                        <span class="ml-1 text-gray-900">{{ $sector->name }}</span>
                                     </label>
                                 @endforeach
                             </div>
                         </div>
                         <div>
                             <label for="assistance_type_id" class="block text-sm font-medium text-gray-700 mb-1">Assistance Type<span class="text-red-500">*</span></label>
-                            <select id="assistance_typess" name="assistance_type_id" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
+                            <select id="assistance_typess" name="assistance_type_id" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500 text-sm" required>
                                 <option value="">Select Assistance Type</option>
                                 @foreach($assistanceTypes as $type)
                                     <option value="{{ $type->id }}">{{ $type->type_name }}</option>
@@ -179,19 +165,19 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Assistance Categories</label>
-                            <div id="categories_section" class="space-y-2">
-                                <p class="text-gray-500 text-sm">Please select an assistance type to view categories.</p>
+                            <div id="categories_section" class="space-y-1">
+                                <p class="text-gray-500 text-xs">Please select an assistance type to view categories.</p>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
-                            <div id="requirements_section" class="space-y-2">
-                                <p class="text-gray-500 text-sm">Please select an assistance type to view requirements.</p>
+                            <div id="requirements_section" class="space-y-1">
+                                <p class="text-gray-500 text-xs">Please select an assistance type to view requirements.</p>
                             </div>
                         </div>
-                        <div>
-                            <label for="Case" class="block text-sm font-medium text-gray-700 mb-1">Case<span class="text-red-500"></span></label>
-                            <select id="Case" name="Case" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" >
+                        <div id="case-field" style="display: none;">
+                            <label for="Case" class="block text-sm font-medium text-gray-700 mb-1">Case</label>
+                            <select id="Case" name="Case" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500 text-sm">
                                 <option value="">Select Case</option>
                                 <option value="CKD">CKD</option>
                                 <option value="Cancer">Cancer</option>
@@ -202,7 +188,7 @@
                             </select>
                         </div>
                         <!-- Representative fields moved below requirements -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
                             <div>
                                 <label for="representative_first_name" class="block text-sm font-medium text-gray-700 mb-1">Representative First Name</label>
                                 <input type="text" id="representative_first_name" name="representative_first_name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500">
@@ -216,17 +202,12 @@
                                 <input type="text" id="representative_last_name" name="representative_last_name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500">
                             </div>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-3">
                             <label for="representative_contact_number" class="block text-sm font-medium text-gray-700 mb-1">Representative Contact Number</label>
                             <input type="text" id="representative_contact_number" name="representative_contact_number" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500">
                         </div>
                     </div>
                 </div>
-                <div class="mt-6">
-                    <button type="submit" id="saveBtn" class="bg-mint-green-600 hover:bg-mint-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors duration-200" disabled>
-                        <i class="fas fa-save mr-2"></i> Save
-                    </button>
-                     <a href="{{ route('clients.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">Cancel</a>
             </form>
         </div>
     </main>
@@ -238,21 +219,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('assistance_typess').addEventListener('change', function() {
         const typeId = this.value;
+        const selectedOptionText = this.options[this.selectedIndex].text;
+        
         saveBtn.disabled = true; // Always disable on change
-        console.log
+        
+        // Toggle Case field visibility based on assistance type
+        const caseField = document.getElementById('case-field');
+        if (selectedOptionText === 'Medical Assistance') {
+            caseField.style.display = 'block';
+        } else {
+            caseField.style.display = 'none';
+            // Clear the case value when hidden
+            document.getElementById('Case').value = '';
+        }
+        
         // Load requirements
         fetch(`/get-requirements/${typeId}`)
             .then(res => res.json())
             .then(data => {
                 let html = '';
                 if (data.length === 0) {
-                    html = '<p>No requirements found.</p>';
+                    html = '<p class="text-gray-500 text-xs">No requirements found.</p>';
                 } else {
                     data.forEach(r => {
                         html += `
-                            <div class="form-check">
+                            <div class="form-check mb-1">
                                 <input type="checkbox" name="requirements[]" value="${r.id}" class="form-check-input requirement-checkbox" id="requirement_${r.id}">
-                                <label class="form-check-label" for="requirement_${r.id}">${r.requirement_name}</label>
+                                <label class="form-check-label text-xs ml-1" for="requirement_${r.id}">${r.requirement_name}</label>
                             </div>
                         `;
                     });
@@ -267,13 +260,13 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 let html = '';
                 if (data.length === 0) {
-                    html = '<p>No categories found.</p>';
+                    html = '<p class="text-gray-500 text-xs">No categories found.</p>';
                 } else {
                     data.forEach(c => {
                         html += `
-                            <div class="form-check">
+                            <div class="form-check mb-1">
                                 <input type="radio" name="assistance_category_id" value="${c.id}" class="form-check-input category-radio" id="category_${c.id}">
-                                <label class="form-check-label" for="category_${c.id}">${c.category_name}</label>
+                                <label class="form-check-label text-xs ml-1" for="category_${c.id}">${c.category_name}</label>
                             </div>
                         `;
                     });
@@ -281,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('categories_section').innerHTML = html;
                 addValidationListeners();
             });
-
         
     });
 

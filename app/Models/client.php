@@ -17,7 +17,8 @@ class Client extends Model
         'age',
         'address',
         'contact_number',
-        'date_of_birth',
+        'birth_date',
+        'Case',
         'municipality_id',
         'assistance_type_id',
         'assistance_category_id',
@@ -25,7 +26,8 @@ class Client extends Model
         'representative_middle_name',
         'representative_last_name',
         'representative_contact_number',
-
+        'valid_id',
+        'id_number',
         'assessed_by'
     ];
 

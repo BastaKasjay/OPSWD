@@ -13,6 +13,8 @@ use App\Http\Controllers\AssistanceCategoryController;
 use App\Http\Controllers\VulnerabilitySectorController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportsController;
 
 // Home page (login protected)
 Route::get('/home', function () {
@@ -53,8 +55,15 @@ Route::post('/logout', function (Request $request) {
     return redirect()->route('login');
 })->name('logout');
 
-// Client routes
-Route::resource('clients', ClientController::class);
+// Client routes (only index, create, store - no show/edit)
+Route::resource('clients', ClientController::class)->only(['index', 'create', 'store']);
+
+// Assistance Management routes (uses ClientController but different views)
+Route::get('assistance', [ClientController::class, 'index'])->name('assistance.index');
+Route::get('assistance/{client}', [ClientController::class, 'show'])->name('assistance.show');
+Route::get('assistance/{client}/edit', [ClientController::class, 'edit'])->name('assistance.edit');
+Route::put('assistance/{client}', [ClientController::class, 'update'])->name('assistance.update');
+Route::delete('assistance/{client}', [ClientController::class, 'destroy'])->name('assistance.destroy');
 
 
 // Municipality routes (optional edit only)
@@ -63,6 +72,9 @@ Route::resource('municipalities', MunicipalityController::class)->only(['index',
 // Dynamic loading routes for dependent dropdowns (Assistance Type)
 Route::get('/get-requirements/{id}', [AssistanceController::class, 'getRequirements']);
 Route::get('/get-categories/{id}', [AssistanceController::class, 'getCategories']);
+
+// Reports routes
+Route::get('reports', [ReportsController::class, 'index'])->name('reports.index');
 
 // Full resource routes for other models
 Route::resource('payees', PayeeController::class);
@@ -73,3 +85,5 @@ Route::resource('client-assistances', ClientAssistanceController::class);
 Route::resource('assistance-types', AssistanceController::class);
 Route::resource('employees', EmployeeController::class);
 Route::resource('roles', RoleController::class);
+Route::resource('users', UserController::class);
+Route::resource('reports', ReportsController::class);

@@ -41,13 +41,13 @@
 <div class="flex min-h-screen bg-gray-100">
     <main class="flex-1 p-8 bg-gray-100">
         <div class="flex items-center mb-6">
-            <a href="{{ route('clients.show', $client->id) }}" class="text-gray-600 hover:text-gray-900 mr-2">
+            <a href="{{ route('assistance.show', $client->id) }}" class="text-gray-600 hover:text-gray-900 mr-2">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="text-3xl font-bold text-gray-800">Edit Client</h1>
+            <h1 class="text-3xl font-bold text-gray-800">Edit Assistance</h1>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md max-w-6xl mx-auto">
-            <form action="{{ route('clients.update', $client->id) }}" method="POST">
+            <form action="{{ route('assistance.update', $client->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
@@ -79,7 +79,29 @@
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-600 text-sm font-medium mb-1">Birth Date</label>
-                            <input type="date" name="birth_date" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" value="{{ $client->birth_date }}">
+                            <input type="date" name="birth_date" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" value="{{ $client->birth_date && $client->birth_date !== '0000-00-00' && $client->birth_date !== '1970-01-01' ? $client->birth_date : '' }}">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="mb-4">
+                                <label class="block text-gray-600 text-sm font-medium mb-1">Valid ID</label>
+                                <select name="valid_id" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" required>
+                                    <option value="">Select Valid ID</option>
+                                    <option value="Driver's License" {{ $client->valid_id == "Driver's License" ? 'selected' : '' }}>Driver's License</option>
+                                    <option value="Passport" {{ $client->valid_id == 'Passport' ? 'selected' : '' }}>Passport</option>
+                                    <option value="PhilHealth ID" {{ $client->valid_id == 'PhilHealth ID' ? 'selected' : '' }}>PhilHealth ID</option>
+                                    <option value="SSS ID" {{ $client->valid_id == 'SSS ID' ? 'selected' : '' }}>SSS ID</option>
+                                    <option value="UMID" {{ $client->valid_id == 'UMID' ? 'selected' : '' }}>UMID</option>
+                                    <option value="Voter's ID" {{ $client->valid_id == "Voter's ID" ? 'selected' : '' }}>Voter's ID</option>
+                                    <option value="Senior Citizen ID" {{ $client->valid_id == 'Senior Citizen ID' ? 'selected' : '' }}>Senior Citizen ID</option>
+                                    <option value="PWD ID" {{ $client->valid_id == 'PWD ID' ? 'selected' : '' }}>PWD ID</option>
+                                    <option value="Barangay ID" {{ $client->valid_id == 'Barangay ID' ? 'selected' : '' }}>Barangay ID</option>
+                                    <option value="Others" {{ $client->valid_id == 'Others' ? 'selected' : '' }}>Others</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-600 text-sm font-medium mb-1">ID Number</label>
+                                <input type="text" name="id_number" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500" value="{{ $client->id_number ?? '' }}" required>
+                            </div>
                         </div>
                     </div>
                     <!-- Address & Contact -->
@@ -151,11 +173,23 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-600 text-sm font-medium mb-1">Case</label>
+                            <select name="Case" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green-500">
+                                <option value="">Select Case</option>
+                                <option value="CKD" {{ $client->Case == 'CKD' ? 'selected' : '' }}>CKD</option>
+                                <option value="Cancer" {{ $client->Case == 'Cancer' ? 'selected' : '' }}>Cancer</option>
+                                <option value="Heart Illness" {{ $client->Case == 'Heart Illness' ? 'selected' : '' }}>Heart Illness</option>
+                                <option value="Diabetes" {{ $client->Case == 'Diabetes' ? 'selected' : '' }}>Diabetes</option>
+                                <option value="Hypertension" {{ $client->Case == 'Hypertension' ? 'selected' : '' }}>Hypertension</option>
+                                <option value="Others" {{ $client->Case == 'Others' ? 'selected' : '' }}>Others</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-end mt-8">
                     <button type="submit" class="bg-mint-green-600 hover:bg-mint-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors duration-200 mr-2">Save Changes</button>
-                    <a href="{{ route('clients.show', $client->id) }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">Cancel</a>
+                    <a href="{{ route('assistance.show', $client->id) }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200">Cancel</a>
                 </div>
             </form>
         </div>
@@ -163,23 +197,35 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $('#assistance_type').on('change', function () {
-        var typeId = $(this).val();
-        $('#assistance_category').empty().append('<option>Loading...</option>');
-        if (typeId) {
-            $.ajax({
-                url: '/get-categories/' + typeId,
-                type: 'GET',
-                success: function (data) {
-                    $('#assistance_category').empty().append('<option value="">Select Assistance Category</option>');
-                    data.forEach(function (category) {
-                        $('#assistance_category').append(
-                            '<option value="'+category.id+'">'+category.category_name+'</option>'
-                        );
-                    });
-                }
-            });
-        }
+    $(document).ready(function() {
+        // Store the current selected category
+        var currentCategoryId = '{{ $client->assistance_category_id }}';
+        
+        $('#assistance_type').on('change', function () {
+            var typeId = $(this).val();
+            $('#assistance_category').empty().append('<option value="">Loading...</option>');
+            
+            if (typeId) {
+                $.ajax({
+                    url: '/get-categories/' + typeId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#assistance_category').empty().append('<option value="">Select Assistance Category</option>');
+                        data.forEach(function (category) {
+                            var selected = category.id == currentCategoryId ? 'selected' : '';
+                            $('#assistance_category').append(
+                                '<option value="'+category.id+'" '+selected+'>'+category.category_name+'</option>'
+                            );
+                        });
+                    },
+                    error: function() {
+                        $('#assistance_category').empty().append('<option value="">Error loading categories</option>');
+                    }
+                });
+            } else {
+                $('#assistance_category').empty().append('<option value="">Select Assistance Category</option>');
+            }
+        });
     });
 </script>
 @endsection

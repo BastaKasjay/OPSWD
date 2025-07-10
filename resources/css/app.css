@@ -1,7 +1,108 @@
-@import 'tailwindcss';
+/* Font import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-
-:root {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden; /* Prevent body scrollbar */
 }
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Styles for the donut chart */
+.donut-chart-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #FF8C00 0% 40%,
+        #FFD700 40% 60%,
+        #00CED1 60% 75%,
+        #FF6347 75% 85%,
+        #6A5ACD 85% 95%,
+        #3CB371 95% 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.donut-chart-inner {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.sidebar {
+        background-color: #234E41; /* bg-mint-green-900 */
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+        min-width: 16rem; /* w-64 */
+    }
+    .sidebar .sidebar-logo {
+        background-color: #276955; /* bg-mint-green-800 */
+        padding: 1rem;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    .sidebar ul {
+        flex-grow: 1;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar li {
+        margin-bottom: 0.5rem;
+    }
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        transition: background 0.2s;
+        color: inherit;
+        text-decoration: none;
+    }
+    .sidebar a.bg-mint-green-700,
+    .sidebar a:hover {
+        background-color: #89C0A3;
+        color: #e6f7f0;
+    }
+    .sidebar .sidebar-footer {
+        margin-top: auto;
+    }
+

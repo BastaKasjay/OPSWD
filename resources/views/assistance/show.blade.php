@@ -42,16 +42,16 @@
 <div class="flex min-h-screen bg-gray-100">
     <main class="flex-1 p-8 bg-gray-100">
         <div class="flex items-center mb-6">
-            <a href="{{ route('clients.index') }}" class="text-gray-600 hover:text-gray-900 mr-2">
+            <a href="{{ route('assistance.index') }}" class="text-gray-600 hover:text-gray-900 mr-2">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="text-3xl font-bold text-gray-800">Client Management</h1>
+            <h1 class="text-3xl font-bold text-gray-800">Assistance Management</h1>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md max-w-6xl mx-auto">
             <div class="flex items-center mb-6 border-b pb-4 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-800 flex-grow">Client Details</h2>
-                <a href="{{ route('clients.edit', $client->id) }}" class="bg-mint-green-600 hover:bg-mint-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors duration-200">
-                    <i class="fas fa-edit mr-2"></i>Edit Client
+                <h2 class="text-2xl font-semibold text-gray-800 flex-grow">Client Assistance Details</h2>
+                <a href="{{ route('assistance.edit', $client->id) }}" class="bg-mint-green-600 hover:bg-mint-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors duration-200">
+                    <i class="fas fa-edit mr-2"></i>Edit Assistance
                 </a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
@@ -80,7 +80,23 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-600 text-sm font-medium mb-1">Birth Date</label>
-                        <div class="p-2 border border-gray-200 rounded-md bg-gray-50 text-gray-800">{{ $client->birth_date ?? '-' }}</div>
+                        <div class="p-2 border border-gray-200 rounded-md bg-gray-50 text-gray-800">
+                            @if ($client->birth_date && $client->birth_date !== '0000-00-00' && $client->birth_date !== '1970-01-01')
+                                {{ \Carbon\Carbon::parse($client->birth_date)->format('F d, Y') }}
+                            @else
+                                -
+                            @endif
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-600 text-sm font-medium mb-1">Valid ID</label>
+                            <div class="p-2 border border-gray-200 rounded-md bg-gray-50 text-gray-800">{{ $client->valid_id ?? '-' }}</div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-600 text-sm font-medium mb-1">ID Number</label>
+                            <div class="p-2 border border-gray-200 rounded-md bg-gray-50 text-gray-800">{{ $client->id_number ?? '-' }}</div>
+                        </div>
                     </div>
                 </div>
                 <!-- Address & Contact -->
@@ -142,12 +158,14 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-600 text-sm font-medium mb-1">Case</label>
-                        <div class="p-2 border border-gray-200 rounded-md bg-gray-50 text-gray-800">{{ $client->Case ?? '-' }}</div>
+                        <div class="p-2 border border-gray-200 rounded-md bg-gray-50 text-gray-800">
+                            {{ $client->Case ?? '-' }}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="flex justify-end mt-8">
-                <a href="{{ route('clients.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200 mr-2">
+                <a href="{{ route('assistance.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200 mr-2">
                     Back to List
                 </a>
             </div>

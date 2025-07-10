@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Clients')
+@section('title', 'Assistance Management')
 
 @section('head')
     <script src="https://cdn.tailwindcss.com"></script>
@@ -88,15 +88,12 @@
 <div class="main-container w-full bg-gray-100">
     <!-- Main Content -->
     <main class="w-full p-3 content-wrapper">
-        <div class="mb-6 mt-6">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Client Management</h1>
-            <div class="flex flex-col md:flex-row items-center justify-between space-y-2 md:space-y-0">
-                <a href="{{ route('clients.create') }}" class="btn btn-primary bg-mint-green-700 hover:bg-mint-green-700 text-white font-semibold px-4 py-2 rounded-lg shadow">Add Client</a>
-                <form method="GET" action="{{ route('clients.index') }}" class="flex w-full md:w-auto gap-2">
-                    <input type="text" name="search" class="form-control border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-mint-green-500" value="{{ request('search') }}" placeholder="Search clients..." oninput="if (this.value === '') this.form.submit()">
-                    <button type="submit" class="btn btn-primary bg-mint-green-700 hover:bg-mint-green-900 text-white px-4 py-2 rounded-lg">Search</button>
-                </form>
-            </div>
+        <div class="flex flex-col md:flex-row items-center justify-between mb-6 mt-6 space-y-2 md:space-y-0">
+            <h1 class="text-4xl font-bold text-gray-800">Assistance Management</h1>
+            <form method="GET" action="{{ route('assistance.index') }}" class="flex w-full md:w-auto gap-2">
+                <input type="text" name="search" class="form-control border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-mint-green-500" value="{{ request('search') }}" placeholder="Search clients..." oninput="if (this.value === '') this.form.submit()">
+                <button type="submit" class="btn btn-primary bg-mint-green-700 hover:bg-mint-green-900 text-white px-4 py-2 rounded-lg">Search</button>
+            </form>
         </div>
 
         @if(request('search'))
@@ -129,36 +126,50 @@
                             <th class="px-2 py-4 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Assistance Category</th>
                             <th class="px-2 py-4 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Vulnerability Sectors</th>
                             <th class="px-3 py-4 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Representative Full Name</th>
-                            <th class="px-3 py-4 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Representative Contact Number</th>
+                            <th class="px-3 py-4 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
                         </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                        @foreach ($clients as $client)
-                            <tr class="hover:bg-mint-green-50 transition h-14 border-b border-gray-100">
-                                <td class="px-3 py-3 text-sm text-mint-green-700 font-medium">
-                                    {{ $client->first_name }} {{ $client->middle_name }} {{ $client->last_name }}
-                                </td>
-                                <td class="px-2 py-3 text-sm text-gray-900">{{ $client->sex }}</td>
-                                <td class="px-3 py-3 text-sm text-gray-900">{{ $client->address }}</td> 
-                                <td class="px-3 py-3 text-sm text-gray-900">{{ $client->municipality ? $client->municipality->name : '-' }}</td>
-                                <td class="px-2 py-3 text-sm text-gray-900">{{ $client->assistanceType ? $client->assistanceType->type_name : '-' }}</td>
-                                <td class="px-2 py-3 text-sm text-gray-900">{{ $client->assistanceCategory ? $client->assistanceCategory->category_name : '-' }}</td>
-                                <td class="px-2 py-3 text-sm text-gray-900">
-                                    @if ($client->vulnerabilitySectors->isNotEmpty())
-                                        @foreach ($client->vulnerabilitySectors as $sector)
-                                            <span class="block">{{ $sector->name }}</span>
-                                        @endforeach
-                                    @else
-                                        None
-                                    @endif
-                                </td>
-                                <td class="px-3 py-3 text-sm text-gray-900">
-                                    {{ trim($client->representative_first_name . ' ' . $client->representative_middle_name . ' ' . $client->representative_last_name) ?: '-' }}
-                                </td>
-                                <td class="px-3 py-3 text-sm text-gray-900">{{ $client->representative_contact_number }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                        </thead>
+                        <tbody class="bg-white">
+                            @foreach ($clients as $client)
+                                <tr class="hover:bg-mint-green-50 transition h-14 border-b border-gray-100">
+                                    <td class="px-3 py-3 text-sm">
+                                        <a href="{{ route('assistance.show', $client->id) }}" class="text-mint-green-700 hover:underline font-medium">
+                                            {{ $client->first_name }} {{ $client->middle_name }} {{ $client->last_name }}
+                                        </a>
+                                    </td>
+                                    <td class="px-2 py-3 text-sm text-gray-900">{{ $client->sex }}</td>
+                                    <td class="px-3 py-3 text-sm text-gray-900">{{ $client->address }}</td> 
+                                    <td class="px-3 py-3 text-sm text-gray-900">{{ $client->municipality ? $client->municipality->name : '-' }}</td>
+                                    <td class="px-2 py-3 text-sm text-gray-900">{{ $client->assistanceType ? $client->assistanceType->type_name : '-' }}</td>
+                                    <td class="px-2 py-3 text-sm text-gray-900">{{ $client->assistanceCategory ? $client->assistanceCategory->category_name : '-' }}</td>
+                                    <td class="px-2 py-3 text-sm text-gray-900">
+                                        @if ($client->vulnerabilitySectors->isNotEmpty())
+                                            @foreach ($client->vulnerabilitySectors as $sector)
+                                                <span class="block">{{ $sector->name }}</span>
+                                            @endforeach
+                                        @else
+                                            None
+                                        @endif
+                                    </td>
+                                    <td class="px-3 py-3 text-sm text-gray-900">
+                                        {{ trim($client->representative_first_name . ' ' . $client->representative_middle_name . ' ' . $client->representative_last_name) ?: '-' }}
+                                    </td>
+                                    <td class="px-3 py-3 text-sm">
+                                        <div class="flex space-x-2">
+                                            <a href="{{ route('assistance.show', $client->id) }}" class="text-blue-600 hover:text-blue-900" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('assistance.edit', $client->id) }}" class="text-mint-green-600 hover:text-mint-green-900" title="Edit Assistance">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" onclick="openDeleteModal('{{ $client->id }}')" class="text-red-600 hover:text-red-900" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                 </table>
             </div>
         </div>
@@ -247,6 +258,33 @@
                 </nav>
             </div>
         </div>
+
+        <!-- Delete Modal -->
+        <div id="deleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
+                <h2 class="text-lg font-semibold text-center mb-3">Confirm Delete</h2>
+                <p class="text-center text-gray-700 mb-4">Are you sure you want to delete this client?</p>
+                <div class="flex justify-center space-x-3">
+                    <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md" onclick="closeModal()">Cancel</button>
+                    <form id="deleteForm" action="" method="POST" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function openDeleteModal(clientId) {
+                document.getElementById('deleteModal').classList.remove('hidden');
+                var form = document.getElementById('deleteForm');
+                form.action = "{{ route('assistance.destroy', ':id') }}".replace(':id', clientId);
+            }
+            function closeModal() {
+                document.getElementById('deleteModal').classList.add('hidden');
+            }
+        </script>
     </main>
 </div>
 @endsection
